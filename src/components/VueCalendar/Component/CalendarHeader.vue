@@ -74,6 +74,13 @@ export default {
 
 <style lang="stylus" scoped>
 .vue-calendar-header{
+  moz-user-select: -moz-none;
+  -moz-user-select: none;
+  -o-user-select:none;
+  -khtml-user-select:none;
+  -webkit-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
   font-size: 20px;
   color: #19243B;
   border: 1px solid #E3ECF3;

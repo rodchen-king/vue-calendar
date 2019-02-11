@@ -1,7 +1,11 @@
 <template>
   <div class="vue-calendar">
-    <calendar-header :observer="vueCalendarObserver"></calendar-header>
-    <calendar-body :observer="vueCalendarObserver"></calendar-body>
+    <calendar-header
+      :observer="vueCalendarObserver"/>
+    <calendar-body
+      :observer="vueCalendarObserver"
+      :weekLabelIndex="weekLabelIndex"
+      @dayClick="dayClick" />
   </div>
 </template>
 
@@ -17,7 +21,10 @@ export default {
     'calendar-header': CalendarHeader
   },
   props: {
-
+    weekLabelIndex: {
+      type: Number,
+      default: 1
+    }
   },
   data () {
     return {
@@ -27,6 +34,11 @@ export default {
   },
   created () {
     this.vueCalendarObserver = initObserver()
+  },
+  methods: {
+    dayClick (dayItem) {
+      this.$emit('dayClick', dayItem)
+    }
   }
 }
 </script>

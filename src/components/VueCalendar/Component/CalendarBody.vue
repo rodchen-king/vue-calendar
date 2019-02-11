@@ -1,9 +1,18 @@
 <template>
 <div class="calendar-body">
+  <div class="calendar-body-week">
+    <div
+      class="calendar-body-week-day"
+      v-for="(weekLabelItem, key) in weekLabelArray"
+      :key=key>
+      <span>{{weekLabelItem}}</span>
+    </div>
+  </div>
   <div class="calendar-body-week" v-for="(weekItem, key) in weekList" :key=key>
     <div
       class="calendar-body-week-day"
       :class="{'calendar-body-current-month': dayItem.isCurrentMonth, 'calendar-body-current-day': dayItem.isCurrentDay}"
+      @click="clickDay(dayItem)"
       v-for="(dayItem, key) in weekItem"
       :key=key>
       <span>{{dayItem.monthDay}}</span>
@@ -18,7 +27,8 @@ import {
   getFirstDayOfCalendar,
   formatDayWithTwoWords,
   isCurrentMonth,
-  isCurrentDay
+  isCurrentDay,
+  getWeekLabelList
 } from '../lib/Util.js'
 
 export default {
@@ -26,6 +36,9 @@ export default {
     // 观察者对象
     observer: {
       type: Object
+    },
+    weekLabelIndex: {
+      type: Number
     }
   },
   created () {
@@ -37,6 +50,9 @@ export default {
     // 设置当前月的第一天，用来数据初始话以及进行日期是否为当前月判断
     this.firstDayOfMonth = getFirstDayOfMonth(new Date())
 
+    // 设置每周label标识数据
+    this.weekLabelArray = getWeekLabelList(this.weekLabelIndex)
+
     // 初始设置当前月日历数据
     this.setWeekListValue(this.firstDayOfMonth)
   },
@@ -45,17 +61,23 @@ export default {
       // 日历标识数据
       firstDayOfMonth: new Date(),
       // 二维数组 6*7
-      weekList: []
+      weekList: [],
+      // 周label数据
+      weekLabelArray: []
     }
   },
   methods: {
     /**
      * 日历方法
      */
+    // 点击日历某天
+    clickDay (dayItem) {
+      this.$emit('dayClick', dayItem)
+    },
     // 设置weekList值
     setWeekListValue (firstDayOfmonth) {
       this.weekList = []
-      let dayOfCalendar = getFirstDayOfCalendar(firstDayOfmonth)
+      let dayOfCalendar = getFirstDayOfCalendar(firstDayOfmonth, this.weekLabelIndex)
 
       // 遍历层数为6，因为日历显示当前月数据为6行
       for (let weekIndex = 0; weekIndex < 6; weekIndex++) {
@@ -77,6 +99,7 @@ export default {
         this.weekList.push(weekItem)
       }
     },
+
     /**
      * 观察者模式相关方法
      */

@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <vue-calendar></vue-calendar>
+    <vue-calendar
+      :weekLabelIndex="weekLabelIndex"
+      @dayClick="dayClick" />
   </div>
 </template>
 
@@ -13,7 +15,12 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      weekLabelIndex: 1
+    }
+  },
+  methods: {
+    dayClick (dayItem) {
+      // Todo customer
     }
   }
 }

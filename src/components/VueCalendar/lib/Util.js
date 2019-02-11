@@ -67,9 +67,29 @@ export const getFirstDayOfMonth = function (date) {
  * 获取当前月日历的第一天
  * @param {*} date
  */
-export const getFirstDayOfCalendar = function (date) {
+export const getFirstDayOfCalendar = function (date, weekLabelIndex) {
   let _date = new Date(date)
-  return new Date(_date.setDate(_date.getDate() - _date.getDay() + 1))
+  _date = new Date(_date.setDate(_date.getDate() - _date.getDay() + weekLabelIndex))
+  // 如果当前日期大于当前月第一天，则需要减去7天
+  if (_date > date) {
+    _date = new Date(_date.setDate(_date.getDate() - 7))
+  }
+
+  return _date
+}
+
+/**
+ * 根据传入index确认weeklabel的顺序
+ * @param {*} weekIndexOfFirstWeekDay
+ */
+export const getWeekLabelList = function (weekIndexOfFirstWeekDay) {
+  let weekLabelArray = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+
+  for (let index = 0; index < weekIndexOfFirstWeekDay; index++) {
+    weekLabelArray.push(weekLabelArray.shift())
+  }
+
+  return weekLabelArray
 }
 
 /**
