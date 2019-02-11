@@ -67,8 +67,10 @@
 ```
 VueCalendar
 	Component
-		Body.vue
-		Header.vue
-	Utiil.js
+		CalendarBody.vue
+		CalendarHeader.vue
+	lib
+		Subject.js
+		Utiil.js
 	VueCaledar.vue
 ```
