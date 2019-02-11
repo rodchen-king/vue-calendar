@@ -12,6 +12,7 @@
 日历初始渲染日期为当前月份  
 头部的左右滑动，日历数据需要显示对应月份的信息  
 点击日期本身可以进行相关数据操作，并且记录操作内容  
+可以根据调用这设置日历的每周数据以星期*为开始，星期天或者星期一  
 
 
 ## 首先思考日历的核心问题
@@ -71,6 +72,6 @@ VueCalendar
 		CalendarHeader.vue
 	lib
 		Subject.js
-		Utiil.js
-	VueCaledar.vue
+		Util.js
+	index.vue
 ```

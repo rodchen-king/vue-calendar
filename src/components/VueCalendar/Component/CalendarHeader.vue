@@ -28,11 +28,6 @@ import {
 } from '../lib/Util.js'
 
 export default {
-  created () {
-    // 获取当前日历header的内容
-    this.headerContent = getHeaderContent(new Date())
-    this.firstDayOfMonth = getFirstDayOfMonth(new Date())
-  },
   props: {
     // 观察者对象
     observer: {
@@ -48,7 +43,20 @@ export default {
       firstDayOfMonth: new Date()
     }
   },
+  created () {
+    // 获取当前日历header的内容
+    this.headerContent = getHeaderContent(new Date())
+    this.firstDayOfMonth = getFirstDayOfMonth(new Date())
+  },
   methods: {
+    /**
+     * 主题发布信息，通知观察者
+     */
+    observerNotify () {
+      this.headerContent = getHeaderContent(this.firstDayOfMonth)
+      this.observer.notify(this.firstDayOfMonth)
+    },
+
     /**
      * 页面操作
      */
@@ -59,21 +67,13 @@ export default {
     goNext () {
       this.firstDayOfMonth = getFirstDayOfNextMonth(this.firstDayOfMonth)
       this.observerNotify()
-    },
-
-    /**
-     * 主题发布信息，通知观察者
-     */
-    observerNotify () {
-      this.headerContent = getHeaderContent(this.firstDayOfMonth)
-      this.observer.notify(this.firstDayOfMonth)
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.vue-calendar-header{
+.vue-calendar-header {
   moz-user-select: -moz-none;
   -moz-user-select: none;
   -o-user-select:none;
@@ -82,7 +82,7 @@ export default {
   -ms-user-select:none;
   user-select:none;
   font-size: 20px;
-  color: #19243B;
+  color: white;
   border: 1px solid #E3ECF3;
   height: 40px;
   display: flex;

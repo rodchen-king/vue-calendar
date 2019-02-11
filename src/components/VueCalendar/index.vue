@@ -45,6 +45,7 @@ export default {
 
 <style lang="stylus" scoped>
 .vue-calendar
+  background #7BDCFE
   font-size 14px
   font-family sans-serif
 </style>

@@ -15,7 +15,7 @@ export default {
   },
   data () {
     return {
-      weekLabelIndex: 1
+      weekLabelIndex: 0
     }
   },
   methods: {
