@@ -4,8 +4,8 @@
       :observer="vueCalendarObserver"/>
     <calendar-body
       :observer="vueCalendarObserver"
-      :week-label-index="weekLabelIndex"
-      @dayClick="handleDayClick" />
+      :weekLabelIndex="weekLabelIndex"
+      @dayClick="dayClick" />
   </div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
     this.vueCalendarObserver = initObserver()
   },
   methods: {
-    handleDayClick (dayItem) {
+    dayClick (dayItem) {
       this.$emit('dayClick', dayItem)
     }
   }

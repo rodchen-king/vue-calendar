@@ -1,25 +1,34 @@
 <template>
-<div class="calendar-body">
-  <div class="calendar-body-week-label">
+  <div class="calendar-body">
+    <!-- 日历周label标识 -->
+    <div class="calendar-body-week-label">
+      <div
+        class="calendar-body-week-label-day"
+        :class="{'red-font': isShowRedColorForWeekLable()}"
+        v-for="(weekLabelItem, index, key) in weekLabelArray"
+        :key=key
+      >
+        <span>{{weekLabelItem}}</span>
+      </div>
+    </div>
+    <!-- 日历数据，遍历日历二位数组，得到每一周数据 -->
     <div
-      class="calendar-body-week-label-day"
-      :class="{'red-font': index + weekLabelIndex === 6 || index + weekLabelIndex === 7 || (index === 0 && weekLabelIndex === 0)}"
-      v-for="(weekLabelItem, index, key) in weekLabelArray"
-      :key=key>
-      <span>{{weekLabelItem}}</span>
+      class="calendar-body-week"
+      v-for="(weekItem, key) in weekList"
+      :key=key
+    >
+      <!-- 遍历每一周数据 -->
+      <div
+        class="calendar-body-week-day"
+        :class="{'calendar-body-current-month': dayItem.isCurrentMonth, 'calendar-body-current-day': dayItem.isCurrentDay, 'red-font': isShowRedColorForWeekLable()}"
+        @click="onClickDay(dayItem)"
+        v-for="(dayItem, index, key) in weekItem"
+        :key=key
+      >
+        <span>{{dayItem.monthDay}}</span>
+      </div>
     </div>
   </div>
-  <div class="calendar-body-week" v-for="(weekItem, key) in weekList" :key=key>
-    <div
-      class="calendar-body-week-day"
-      :class="{'calendar-body-current-month': dayItem.isCurrentMonth, 'calendar-body-current-day': dayItem.isCurrentDay, 'red-font': index + weekLabelIndex === 6 || index + weekLabelIndex === 7 || (index === 0 && weekLabelIndex === 0)}"
-      @click="clickDay(dayItem)"
-      v-for="(dayItem, index, key) in weekItem"
-      :key=key>
-      <span>{{dayItem.monthDay}}</span>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>
@@ -71,8 +80,8 @@ export default {
     /**
      * 日历方法
      */
-    // 点击日历某天
-    clickDay (dayItem) {
+    // 点击日历
+    onClickDay (dayItem) {
       this.$emit('dayClick', dayItem)
     },
     // 设置weekList值
@@ -108,6 +117,16 @@ export default {
     update (content) {
       this.firstDayOfMonth = content
       this.setWeekListValue(content)
+    },
+
+    /**
+     * 工具方法
+     */
+    // 周六/周日标识红色字体
+    isShowRedColorForWeekLable (index) {
+      return index + this.weekLabelIndex === 6 ||
+        index + this.weekLabelIndex === 7 ||
+        (index === 0 && this.weekLabelIndex === 0)
     }
   }
 }
