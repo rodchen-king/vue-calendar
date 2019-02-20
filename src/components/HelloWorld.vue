@@ -1,18 +1,15 @@
 <template>
   <div class="main">
     <vue-calendar
-      :weekLabelIndex="weekLabelIndex"
+      :week-label-index="weekLabelIndex"
       @dayClick="dayClick" />
   </div>
 </template>
 
 <script>
-import VueCalendar from './VueCalendar'
+
 export default {
   name: 'HelloWorld',
-  components: {
-    'vue-calendar': VueCalendar
-  },
   data () {
     return {
       weekLabelIndex: 0
